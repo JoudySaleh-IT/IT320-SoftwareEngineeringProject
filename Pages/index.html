@@ -1,0 +1,746 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <title>عيشها</title>
+    <style>
+        /* ====== RESET & GLOBAL STYLES ====== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f8f9fa;
+            color: #1D1452;
+            line-height: 1.6;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* ====== HEADER STYLES ====== */
+        .site-header {
+            background-color: #1D1452;
+            padding: 20px 24px;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.25);
+            color: #fff;
+            width: 100%;
+        }
+
+        .header-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr auto 1fr;
+            align-items: center;
+        }
+
+        .header-profile {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+            color: #fff;
+            font-weight: 500;
+            justify-self: start;
+        }
+
+        .profile-avatar {
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            object-fit: cover;
+            background-color: #ccc;
+            border: 2px solid #fff;
+        }
+
+        .profile-label {
+            font-size: 1rem;
+        }
+
+        .header-logo {
+            justify-self: center;
+            text-decoration: none;
+            line-height: 0;
+        }
+
+        .brand-logo {
+            height: 60px;
+            max-height: 60px;
+        }
+
+        .signout-btn {
+            justify-self: end;
+            background-color: #D73863;
+            border: none;
+            color: #fff;
+            font-weight: 500;
+            font-family: 'Segoe UI', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            padding: 12px 20px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: background-color 0.2s ease;
+        }
+
+        .signout-btn:hover {
+            background-color: #b82d54;
+        }
+
+        /* ====== HOME WRAPPER ====== */
+        .home-wrapper {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 32px 24px;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: #1D1452;
+            flex: 1;
+            width: 100%;
+        }
+
+        .home-topbar {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 16px;
+            margin-bottom: 20px;
+        }
+
+        .home-tabs {
+            display: flex;
+            gap: 8px;
+        }
+
+        .tab-btn {
+            background-color: #F5F3FA;
+            color: #1D1452;
+            border: 2px solid transparent;
+            padding: 8px 14px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .tab-btn.tab-active {
+            background-color: #1D1452;
+            color: #fff;
+            border-color: #1D1452;
+        }
+
+        .tab-btn:hover {
+            border-color: #D73863;
+        }
+
+        .add-exp-btn {
+            background-color: #D73863;
+            color: #fff;
+            text-decoration: none;
+            font-weight: 500;
+            padding: 10px 16px;
+            border-radius: 24px;
+            font-size: 0.9rem;
+            transition: background-color 0.2s;
+            white-space: nowrap;
+        }
+        .add-exp-btn:hover {
+            background-color: #b82d54;
+        }
+
+        .filters-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-bottom: 24px;
+        }
+
+        .search-box {
+            flex: 1;
+            min-width: 200px;
+            padding: 10px 12px;
+            border-radius: 10px;
+            border: 2px solid #1D1452;
+            font-size: 0.9rem;
+            outline: none;
+        }
+
+        .filter-select {
+            padding: 10px 12px;
+            border-radius: 10px;
+            border: 2px solid #1D1452;
+            font-size: 0.9rem;
+            min-width: 200px;
+            background-color: #fff;
+            color: #1D1452;
+            outline: none;
+        }
+
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(min(100%,270px),1fr));
+            gap: 20px;
+            min-height: 200px;
+        }
+
+        .exp-card {
+            background-color: #fff;
+            border-radius: 16px;
+            border: 2px solid #F5F3FA;
+            box-shadow: 0 6px 16px rgba(0,0,0,0.05);
+            cursor: pointer;
+            transition: box-shadow 0.2s, transform 0.2s;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .exp-card:hover {
+            box-shadow: 0 10px 20px rgba(0,0,0,0.08);
+            transform: translateY(-2px);
+        }
+
+        .exp-card-img {
+            background-color: #F5F3FA;
+            height: 140px;
+            width: 100%;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .exp-card-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .exp-card-body {
+            padding: 16px;
+            color: #1D1452;
+            font-size: 0.9rem;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .exp-card-toprow {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            margin-bottom: 8px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            color: #1D1452;
+        }
+
+        .exp-city {
+            opacity: 0.8;
+        }
+
+        .exp-price {
+            color: #D73863;
+            font-weight: 600;
+        }
+
+        .exchange-label {
+            background-color: #1D1452;
+            color: #fff;
+            padding: 2px 8px;
+            border-radius: 12px;
+            font-size: 0.7rem;
+        }
+
+        .exp-title {
+            font-size: 1rem;
+            font-weight: 600;
+            margin: 0 0 6px 0;
+            color: #1D1452;
+        }
+
+        .exp-desc {
+            font-size: 0.85rem;
+            line-height: 1.4;
+            color: #1D1452;
+            opacity: 0.9;
+            margin-bottom: 12px;
+            flex: 1;
+        }
+
+        .exp-category {
+            display: inline-block;
+            background: #F5F3FA;
+            color: #1D1452;
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-size: 0.7rem;
+            font-weight: 500;
+            margin-bottom: 12px;
+            align-self: flex-start;
+        }
+
+        /* Exchange preferences section */
+        .exchange-preferences {
+            margin: 10px 0;
+            padding: 10px;
+            background-color: #F9F7FF;
+            border-radius: 8px;
+            border-right: 3px solid #D73863;
+        }
+
+        .exchange-preferences-title {
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: #1D1452;
+            margin-bottom: 5px;
+        }
+
+        .exchange-preferences-list {
+            font-size: 0.75rem;
+            color: #1D1452;
+            opacity: 0.9;
+            line-height: 1.4;
+        }
+
+        /* No results message */
+        .no-results {
+            grid-column: 1 / -1;
+            text-align: center;
+            padding: 40px 20px;
+            color: #1D1452;
+            font-size: 1.1rem;
+            background-color: #F5F3FA;
+            border-radius: 16px;
+            border: 2px dashed #1D1452;
+        }
+
+        /* ====== FOOTER STYLES ====== */
+        .site-footer {
+            background-color: #1D1452;
+            color: #fff;
+            padding: 24px 24px 12px;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin-top: auto;
+            width: 100%;
+        }
+
+        .footer-top {
+            max-width: 1200px;
+            margin: 0 auto 16px auto;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 16px;
+        }
+
+        .footer-left .footer-logo {
+            height: 48px;
+            max-height: 48px;
+        }
+
+        .footer-right {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .social {
+            color: #fff;
+            display: inline-flex;
+            padding: 8px;
+            border-radius: 8px;
+            transition: color 0.2s, background-color 0.2s;
+        }
+
+        .social:hover {
+            background-color: rgba(255,255,255,0.08);
+            color: #D73863;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            border-top: 1px solid rgba(255,255,255,0.15);
+            padding-top: 12px;
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+
+        /* RTL Specific Adjustments */
+        .search-box::placeholder,
+        .filter-select {
+            text-align: right;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        .exp-card-toprow {
+            flex-direction: row-reverse;
+        }
+
+        .filters-row {
+            flex-direction: row-reverse;
+        }
+
+        .home-tabs {
+            flex-direction: row-reverse;
+        }
+
+        .home-topbar {
+            flex-direction: row-reverse;
+        }
+
+        @media (max-width: 500px) {
+            .home-wrapper {
+                padding: 24px 16px;
+            }
+            .home-topbar {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            .add-exp-btn {
+                width: 100%;
+                text-align: center;
+            }
+            .filters-row {
+                flex-direction: column;
+            }
+            .filter-select,
+            .search-box {
+                width: 100%;
+            }
+            .profile-label {
+                display: none;
+            }
+            .signout-btn {
+                padding: 10px 16px;
+                font-size: 0.9rem;
+            }
+            .brand-logo {
+                height: 48px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- HEADER -->
+    <header class="site-header">
+        <div class="header-inner">
+            <!-- Right: Profile -->
+            <a href="profile_owner.html" class="header-profile">
+                <img src="images/user1.png" alt="الملف الشخصي" class="profile-avatar">
+                <span class="profile-label">الملف الشخصي</span>
+            </a>
+
+            <!-- Center: Logo -->
+            <a href="index.html" class="header-logo">
+                <img src="images/logo.png" alt="شعار عيشها" class="brand-logo">
+            </a>
+
+            <!-- Left: Sign Out -->
+            <button class="signout-btn">تسجيل الخروج</button>
+        </div>
+    </header>
+
+    <main class="home-wrapper">
+        <!-- Top row: Tabs + Add Experience -->
+        <div class="home-topbar">
+            <div class="home-tabs">
+                <button class="tab-btn tab-active" data-tab="all">الكل</button>
+                <button class="tab-btn" data-tab="paid">مدفوعة</button>
+                <button class="tab-btn" data-tab="exchange">تبادل التجارب</button>
+            </div>
+
+            <a class="add-exp-btn" href="signup.html">
+                + إضافة تجربة
+            </a>
+        </div>
+
+        <!-- Search + Filters -->
+        <section class="filters-row">
+            <input type="text" class="search-box" id="searchInput" placeholder="ابحث في التجارب...">
+
+            <select class="filter-select" id="locationCategoryFilter">
+                <option value="">جميع المدن والتصنيفات</option>
+                <optgroup label="المدن">
+                    <option value="city-الرياض">الرياض</option>
+                    <option value="city-جدة">جدة</option>
+                    <option value="city-الدمام">الدمام</option>
+                </optgroup>
+                <optgroup label="التصنيفات">
+                    <option value="category-الطعام والثقافة">الطعام والثقافة</option>
+                    <option value="category-ورش العمل">ورش العمل</option>
+                    <option value="category-الجولات">الجولات</option>
+                    <option value="category-ثقافة">ثقافة</option>
+                    <option value="category-نمط الحياة">نمط الحياة</option>
+                    <option value="category-ترفيه">ترفيه</option>
+                </optgroup>
+            </select>
+        </section>
+
+        <!-- Experience Cards -->
+        <section class="cards-grid" id="experience-list">
+            <!-- Card: paid -->
+            <a href="exp-details.html" class="exp-card" data-type="paid" data-city="الرياض" data-category="الطعام والثقافة">
+                <div class="exp-card-img"><img src="images/Exp1.jpg"></div>
+                <div class="exp-card-body">
+                    <div class="exp-card-toprow">
+                        <span class="exp-city">الرياض</span>
+                        <span class="exp-price">60 ريال</span>
+                    </div>
+                    <h3 class="exp-title">صنع القهوة السعودية التقليدية</h3>
+                    <p class="exp-desc">
+                        جلسة خاصة في الشرفة لتجربة القهوة السعودية التقليدية مع شرح لطريقة التحضير وطقوس التقديم.
+                    </p>
+                    <span class="exp-category">الطعام والثقافة</span>
+                </div>
+            </a>
+
+            <!-- Card: exchange with preferences -->
+            <a href="exp-details.html" class="exp-card" data-type="exchange" data-city="الرياض" data-category="ورش العمل">
+                <div class="exp-card-img"><img src="images/Exp2.jpg"></div>
+                <div class="exp-card-body">
+                    <div class="exp-card-toprow">
+                        <span class="exp-city">الرياض</span>
+                        <span class="exchange-label">تبادل</span>
+                    </div>
+                    <h3 class="exp-title">تعليم أساسيات التصوير</h3>
+                    <p class="exp-desc">
+                        ورشة عملية لتعليم أساسيات تعديل الصور في لايت روم على مختلف الصور الاحترافية.
+                    </p>
+                    
+                    
+                    <!-- Exchange preferences section -->
+                    <div class="exchange-preferences">
+                        <div class="exchange-preferences-title">أبحث عن:</div>
+                        <div class="exchange-preferences-list">مهارات التصميم الجرافيكي، مساعدة في التسويق الرقمي</div>
+                    </div>
+
+                    <span class="exp-category">ورش العمل</span>
+                </div>
+            </a>
+
+            <!-- Additional Cards -->
+            <a href="exp-details.html" class="exp-card" data-type="paid" data-city="الرياض" data-category="الجولات">
+                <div class="exp-card-img"><img src="images/Ex3.jpg"></div>
+                <div class="exp-card-body">
+                    <div class="exp-card-toprow">
+                        <span class="exp-city">الرياض</span>
+                        <span class="exp-price">50 ريال</span>
+                    </div>
+                    <h3 class="exp-title">قيم نايت</h3>
+                    <p class="exp-desc">
+                       عِش أجواء تنافسية ممتعة في ليلة ألعاب جماعية مليئة بالحماس والضحك.
+                    </p>
+                    <span class="exp-category">الجولات</span>
+                </div>
+            </a>
+
+            
+
+            <a href="exp-details.html" class="exp-card" data-type="exchange" data-city="الدمام" data-category="الطعام والثقافة">
+                <div class="exp-card-img"><img src="images/Exp4.jpg"></div>
+                <div class="exp-card-body">
+                    <div class="exp-card-toprow">
+                        <span class="exp-city">الدمام</span>
+                        <span class="exchange-label">تبادل</span>
+                    </div>
+                    <h3 class="exp-title">ورشة طبخ أطباق سعودية تقليدية</h3>
+                    <p class="exp-desc">
+                        ورشة ممتعة لتعلم تحضير أطباق سعودية متنوعة مع إمكانية تبادل المهارات مع المشاركين.
+                    </p>
+                    
+                    
+                    <!-- Exchange preferences section -->
+                    <div class="exchange-preferences">
+                        <div class="exchange-preferences-title">أبحث عن:</div>
+                        <div class="exchange-preferences-list">تعلم الخياطة، مساعدة في التصوير الفوتوغرافي</div>
+                    </div>
+
+                    <span class="exp-category">الطعام والثقافة</span>
+                </div>
+            </a>
+
+            <a href="exp-details.html" class="exp-card" data-type="paid" data-city="جدة" data-category="ترفيه">
+                <div class="exp-card-img"><img src="images/Exp5.jpg"></div>
+                <div class="exp-card-body">
+                    <div class="exp-card-toprow">
+                        <span class="exp-city">جدة</span>
+                        <span class="exp-price">150 ريال</span>
+                    </div>
+                    <h3 class="exp-title">جولة تصوير في جدة التاريخية</h3>
+                    <p class="exp-desc">
+                        جولة ميدانية في حي البلد مع مصور محترف لالتقاط صور للعمارة التقليدية والشوارع القديمة.
+                    </p>
+                    <span class="exp-category">ترفيه</span>
+                </div>
+            </a>
+
+            <a href="exp-details.html" class="exp-card" data-type="exchange" data-city="الرياض" data-category="ثقافة">
+                <div class="exp-card-img"><img src="images/Exp6.jpg"></div>
+                <div class="exp-card-body">
+                    <div class="exp-card-toprow">
+                        <span class="exp-city">الرياض</span>
+                        <span class="exchange-label">تبادل</span>
+                    </div>
+                    <h3 class="exp-title">تعليم الخط العربي للمبتدئين</h3>
+                    <p class="exp-desc">
+                        جلسة تعليم أساسيات الخط العربي مع فرصة لتبادل المهارات في مجالات أخرى.
+                    </p>
+                    
+                    
+                    <!-- Exchange preferences section -->
+                    <div class="exchange-preferences">
+                        <div class="exchange-preferences-title">أبحث عن:</div>
+                        <div class="exchange-preferences-list">تعلم البرمجة، مساعدة في تصميم المواقع</div>
+                    </div>
+                    <span class="exp-category">ثقافة</span>
+                </div>
+            </a>
+        </section>
+    </main>
+
+    <!-- ====== FOOTER ======-->
+    <footer class="site-footer">
+        <div class="footer-top">
+            <!--Right: Logo -->
+            <div class="footer-left">
+                <a href="index.html">
+                    <img src="images/logo.png" alt="شعار عيشها" class="footer-logo">
+                </a>
+            </div>
+
+            <!-- Left: Contact / Social -->
+            <div class="footer-right">
+                <a href="#" aria-label="إنستغرام" class="social">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" viewBox="0 0 24 24"><path d="M7 2h10a5 5 0 015 5v10a5 5 0 01-5 5H7a5 5 0 01-5-5V7a5 5 0 015-5zm5 5a5 5 0 100 10 5 5 0 000-10zm6-.8a1 1 0 100 2 1 1 0 000-2z"/></svg>
+                </a>
+
+                <a href="#" aria-label="تويتر" class="social">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" viewBox="0 0 24 24"><path d="M19.6 2.3h2.4l-5.2 6 6.1 8h-4.8l-3.6-4.8-4.1 4.8H3.8l5.6-6.4L3.6 2.3H8l3.2 4.4z"/></svg>
+                </a>
+
+                <a href="mailto:info@3eeshha.com" aria-label="البريد الإلكتروني" class="social">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" viewBox="0 0 24 24"><path d="M4 6h16a2 2 0 012 2v8a2 2 0 01-2 2H4a2 2 0 01-2-2V8a2 2 0 012-2zm0 2l8 5 8-5"/></svg>
+                </a>
+
+                <a href="tel:+966500000000" aria-label="الهاتف" class="social">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" viewBox="0 0 24 24"><path d="M6.6 10.8a15 15 0 006.6 6.6l2.2-2.2a1 1 0 011.1-.2c1.2.5 2.5.8 3.9.8a1 1 0 011 1V20a1 1 0 01-1 1C12.4 21 3 11.6 3 1a1 1 0 011-1h3.2a1 1 0 011 1c0 1.4.3 2.7.8 3.9.1.4 0 .8-.2 1.1l-2.2 2.2z"/></svg>
+                </a>
+            </div>
+        </div>
+
+        <!-- Bottom: Copyright -->
+        <div class="footer-bottom">
+            <p>© 2025 عيشها. جميع الحقوق محفوظة.</p>
+        </div>
+    </footer>
+
+    <script>
+        const tabs = document.querySelectorAll('.tab-btn');
+        const cards = document.querySelectorAll('.exp-card');
+        const locationCategoryFilter = document.getElementById('locationCategoryFilter');
+        const searchInput = document.getElementById('searchInput');
+        const cardsGrid = document.getElementById('experience-list');
+
+        // Tab filtering functionality
+        tabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                // 1. Update which tab looks active
+                tabs.forEach(t => t.classList.remove('tab-active'));
+                tab.classList.add('tab-active');
+
+                // 2. Filter cards
+                filterCards();
+            });
+        });
+
+        // Combined location and category filter functionality
+        locationCategoryFilter.addEventListener('change', filterCards);
+
+        // Search functionality
+        searchInput.addEventListener('input', filterCards);
+
+        function filterCards() {
+            const selectedTab = document.querySelector('.tab-btn.tab-active').dataset.tab;
+            const selectedFilter = locationCategoryFilter.value;
+            const searchTerm = searchInput.value.toLowerCase().trim();
+            
+            let visibleCards = 0;
+            
+            cards.forEach(card => {
+                const cardType = card.getAttribute('data-type');
+                const cardCity = card.getAttribute('data-city');
+                const cardCategory = card.getAttribute('data-category');
+                const cardTitle = card.querySelector('.exp-title').textContent.toLowerCase();
+                const cardDesc = card.querySelector('.exp-desc').textContent.toLowerCase();
+                
+                let showCard = true;
+                
+                // Filter by tab type
+                if (selectedTab !== 'all' && cardType !== selectedTab) {
+                    showCard = false;
+                }
+                
+                // Filter by location/category
+                if (selectedFilter && showCard) {
+                    if (selectedFilter.startsWith('city-')) {
+                        const selectedCity = selectedFilter.replace('city-', '');
+                        if (cardCity !== selectedCity) {
+                            showCard = false;
+                        }
+                    } else if (selectedFilter.startsWith('category-')) {
+                        const selectedCategory = selectedFilter.replace('category-', '');
+                        if (cardCategory !== selectedCategory) {
+                            showCard = false;
+                        }
+                    }
+                }
+                
+                // Filter by search term
+                if (searchTerm && showCard) {
+                    const matchesSearch = cardTitle.includes(searchTerm) || 
+                                        cardDesc.includes(searchTerm) ||
+                                        cardCity.toLowerCase().includes(searchTerm) ||
+                                        cardCategory.toLowerCase().includes(searchTerm);
+                    if (!matchesSearch) {
+                        showCard = false;
+                    }
+                }
+                
+                card.style.display = showCard ? '' : 'none';
+                if (showCard) visibleCards++;
+            });
+            
+            // Show no results message if no cards are visible
+            let noResultsMsg = cardsGrid.querySelector('.no-results');
+            if (visibleCards === 0) {
+                if (!noResultsMsg) {
+                    noResultsMsg = document.createElement('div');
+                    noResultsMsg.className = 'no-results';
+                    noResultsMsg.textContent = 'لم يتم العثور على تجارب تطابق معايير البحث';
+                    cardsGrid.appendChild(noResultsMsg);
+                }
+            } else if (noResultsMsg) {
+                noResultsMsg.remove();
+            }
+        }
+
+        // Initialize the page
+        filterCards();
+    </script>
+</body>
+</html>

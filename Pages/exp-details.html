@@ -1,0 +1,791 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تفاصيل التجربة</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            font-family: 'Segoe UI', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f8f9fa;
+            color: #1D1452;
+            direction: rtl;
+        }
+
+        /* Header Styles */
+        .site-header {
+            background-color: #1D1452;
+            padding: 20px 24px;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.25);
+            color: #fff;
+            width: 100%;
+        }
+
+        .header-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr auto 1fr;
+            align-items: center;
+        }
+
+        .header-profile {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+            color: #fff;
+            font-weight: 500;
+            justify-self: start;
+        }
+
+        .profile-avatar {
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            object-fit: cover;
+            background-color: #ccc;
+            border: 2px solid #fff;
+        }
+
+        .header-logo {
+            justify-self: center;
+            text-decoration: none;
+            line-height: 0;
+        }
+
+        .brand-logo {
+            height: 60px;
+            max-height: 60px;
+        }
+
+        .signout-btn {
+            justify-self: end;
+            background-color: #D73863;
+            border: none;
+            color: #fff;
+            font-weight: 500;
+            padding: 12px 20px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            font-family: 'Segoe UI', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            transition: background-color 0.2s ease;
+        }
+
+        /* Experience Details */
+        .exp-details-wrapper {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 0 24px;
+        }
+
+        .back-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 20px;
+            color: #1D1452;
+            text-decoration: none;
+            font-weight: 500;
+            padding: 8px 16px;
+            border-radius: 8px;
+            transition: background-color 0.2s;
+        }
+
+        .back-btn:hover {
+            background-color: #F5F3FA;
+        }
+
+        .exp-details-container {
+            display: grid;
+            grid-template-columns: 1fr 400px;
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .exp-image {
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        .main-image {
+            width: 100%;
+            height: 400px;
+            object-fit: cover;
+            background-color: #F5F3FA;
+        }
+
+        .image-info-section {
+            margin-top: 20px;
+        }
+
+        .exp-category {
+            display: inline-block;
+            background: #1D1452;
+            color: #fff;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 1rem;
+            font-weight: 500;
+            margin-bottom: 20px;
+        }
+
+        .exp-description {
+            margin-bottom: 30px;
+        }
+
+        .description-title {
+            font-size: 1.3rem;
+            margin-bottom: 15px;
+            color: #1D1452;
+        }
+
+        .description-text {
+            color: #666;
+            line-height: 1.6;
+            font-size: 1.05rem;
+        }
+
+        .exp-info {
+            background: white;
+            border-radius: 12px;
+            padding: 30px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            height: fit-content;
+        }
+
+        .exp-title {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: #1D1452;
+            line-height: 1.3;
+        }
+
+        .exp-location {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: #666;
+            margin-bottom: 20px;
+            font-size: 1rem;
+        }
+
+        .host-info {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 20px 0;
+            border-top: 1px solid #e0e0e0;
+            border-bottom: 1px solid #e0e0e0;
+            margin-bottom: 20px;
+        }
+
+        .host-avatar {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            object-fit: cover;
+            background-color: #F5F3FA;
+        }
+
+        .host-details {
+            flex: 1;
+        }
+
+        .host-name {
+            font-weight: 600;
+            color: #1D1452;
+            margin-bottom: 5px;
+        }
+
+        .host-rating {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .star {
+            color: #FFD700;
+        }
+
+        .rating-value {
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        .exp-pricing {
+            margin-bottom: 25px;
+        }
+
+        .price {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #D73863;
+            margin-bottom: 5px;
+        }
+
+        .exchange-label {
+            background-color: #1D1452;
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 1rem;
+            font-weight: 500;
+            display: inline-block;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 15px;
+        }
+
+        .book-btn {
+            flex: 1;
+            padding: 15px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            font-family: 'Segoe UI', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            transition: background-color 0.2s;
+            text-align: center;
+            text-decoration: none;
+            background-color: #D73863;
+            color: white;
+        }
+
+        .book-btn:hover {
+            background-color: #b82d54;
+        }
+
+        /* Booking Modal */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0, 0, 0, 0.5);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 2000;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .booking-modal {
+            background: white;
+            border-radius: 12px;
+            width: 90%;
+            max-width: 500px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            transform: translateY(-20px);
+            transition: transform 0.3s ease;
+        }
+
+        .modal-overlay.active .booking-modal {
+            transform: translateY(0);
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .modal-title {
+            font-size: 1.5rem;
+            color: #1D1452;
+            margin: 0;
+        }
+
+        .close-btn {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: #666;
+        }
+
+        .booking-form {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .form-label {
+            font-weight: 500;
+            color: #1D1452;
+        }
+
+        .form-input, .form-select {
+            padding: 12px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border-color 0.2s;
+        }
+
+        .form-input:focus, .form-select:focus {
+            outline: none;
+            border-color: #1D1452;
+        }
+
+        .agreement {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            margin: 10px 0;
+        }
+
+        .agreement-checkbox {
+            margin-top: 3px;
+        }
+
+        .agreement-text {
+            font-size: 0.9rem;
+            color: #666;
+            line-height: 1.4;
+        }
+
+        .modal-buttons {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .confirm-btn, .cancel-btn {
+            flex: 1;
+            padding: 12px;
+            border: none;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            font-family: 'Segoe UI', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        .confirm-btn {
+            background-color: #D73863;
+            color: white;
+        }
+
+        .confirm-btn:hover {
+            background-color: #b82d54;
+        }
+
+        .cancel-btn {
+            background-color: #e0e0e0;
+            color: #333;
+        }
+
+        .cancel-btn:hover {
+            background-color: #d0d0d0;
+        }
+
+        /* Host Contact Info */
+        .host-contact {
+            text-align: center;
+            padding: 20px;
+            background-color: #f8f9fa;
+            border-radius: 8px;
+            margin-top: 20px;
+        }
+
+        .contact-title {
+            font-size: 1.2rem;
+            color: #1D1452;
+            margin-bottom: 15px;
+        }
+
+        .phone-number {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #D73863;
+            direction: ltr;
+            display: block;
+            margin: 10px 0;
+        }
+
+        .contact-note {
+            color: #666;
+            font-size: 0.9rem;
+            margin-top: 15px;
+        }
+
+        /* Footer */
+        .site-footer {
+            background-color: #1D1452;
+            color: #fff;
+            padding: 24px 24px 12px;
+            margin-top: 60px;
+        }
+
+        .footer-top {
+            max-width: 1200px;
+            margin: 0 auto 16px auto;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 16px;
+        }
+
+        .footer-left .footer-logo {
+            height: 48px;
+            max-height: 48px;
+        }
+
+        .footer-right {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .social {
+            color: #fff;
+            display: inline-flex;
+            padding: 8px;
+            border-radius: 8px;
+            transition: color 0.2s, background-color 0.2s;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            border-top: 1px solid rgba(255,255,255,0.15);
+            padding-top: 12px;
+            font-size: 0.8rem;
+            opacity: 0.9;
+        }
+
+        @media (max-width: 1024px) {
+            .exp-details-container {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+            
+            .exp-info {
+                order: -1;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .exp-details-wrapper {
+                margin: 20px auto;
+            }
+            
+            .exp-title {
+                font-size: 1.7rem;
+            }
+            
+            .action-buttons {
+                flex-direction: column;
+            }
+            
+            .main-image {
+                height: 300px;
+            }
+            
+            .host-info {
+                flex-direction: column;
+                text-align: center;
+                gap: 10px;
+            }
+            
+            .modal-buttons {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="site-header">
+        <div class="header-inner">
+            <a href="profile_owner.html" class="header-profile">
+                <img src="images/profilePicture.png" alt="الملف الشخصي" class="profile-avatar">
+                <span class="profile-label">الملف الشخصي</span>
+            </a>
+
+            <a href="index.html" class="header-logo">
+                <img src="images/logo.png" alt="شعار عيشها" class="brand-logo">
+            </a>
+
+            <button class="signout-btn">تسجيل الخروج</button>
+        </div>
+    </header>
+
+    <!-- Experience Details -->
+    <main class="exp-details-wrapper">
+        <a href="index.html" class="back-btn">
+            <span>←</span>
+            العودة للصفحة الرئيسية
+        </a>
+
+        <div class="exp-details-container">
+            <div class="exp-content">
+                <div class="exp-image">
+                    <img src="images/Exp1.jpg" alt="صورة التجربة" class="main-image">
+                </div>
+
+                <div class="image-info-section">
+                    <span class="exp-category">الطعام والثقافة</span>
+                    
+                    <div class="exp-description">
+                        <h3 class="description-title">عن التجربة</h3>
+                        <div class="description-text" id="descriptionText">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="exp-info">
+                <h1 class="exp-title">تذوق القهوة العربية في شرفة مع إطلالة الغروب</h1>
+                
+                <div class="exp-location">
+                    <span>📍</span>
+                    <span>الرياض، السعودية</span>
+                </div>
+
+                <div class="host-info">
+                   <a href="profile_seeker.html"><img src="images/profilePicture.png" alt="صورة المضيف" class="host-avatar">
+                    <div class="host-details">
+                        <div class="host-name">سارة المنصور</a></div>
+                        <div class="host-rating">
+                            <span class="star">★</span>
+                            <span class="star">★</span>
+                            <span class="star">★</span>
+                            <span class="star">★</span>
+                            <span class="star">★</span>
+                            <span class="rating-value">(4.8/5)</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="exp-pricing">
+                    <div class="price">60 ريال</div>
+                    <div class="price-note">للفرد</div>
+                </div>
+
+                <div class="action-buttons">
+                    <button class="book-btn" id="bookBtn">حجز التجربة</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Booking Modal -->
+        <div class="modal-overlay" id="bookingModal">
+            <div class="booking-modal">
+                <div class="modal-header">
+                    <h2 class="modal-title">حجز التجربة</h2>
+                    <button class="close-btn" id="closeModal">×</button>
+                </div>
+                
+                <div id="bookingForm">
+                    <div class="booking-form">
+                        <div class="form-group">
+                            <label for="participants" class="form-label">عدد الأشخاص (الحد الأقصى 10)</label>
+                            <select id="participants" class="form-select">
+                                <option value="1">1 شخص</option>
+                                <option value="2">2 أشخاص</option>
+                                <option value="3">3 أشخاص</option>
+                                <option value="4">4 أشخاص</option>
+                                <option value="5">5 أشخاص</option>
+                                <option value="6">6 أشخاص</option>
+                                <option value="7">7 أشخاص</option>
+                                <option value="8">8 أشخاص</option>
+                                <option value="9">9 أشخاص</option>
+                                <option value="10">10 أشخاص</option>
+                            </select>
+                        </div>
+                        
+                        <div class="agreement">
+                            <input type="checkbox" id="agreement" class="agreement-checkbox" required>
+                            <label for="agreement" class="agreement-text">
+                                أوافق على الالتزام بشروط التجربة وأتفهم أن الحجز نهائي ولا يمكن إلغاؤه إلا قبل 24 ساعة من موعد التجربة.
+                            </label>
+                        </div>
+                        
+                        <div class="modal-buttons">
+                            <button class="confirm-btn" id="confirmBooking">تأكيد الحجز</button>
+                            <button class="cancel-btn" id="cancelBooking">إلغاء</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div id="hostContactInfo" style="display: none;">
+                    <div class="host-contact">
+                        <h3 class="contact-title">تم تأكيد حجزك!</h3>
+                        <p>لإتمام الترتيبات النهائية، يرجى التواصل مع المضيف على الرقم التالي:</p>
+                        <span class="phone-number">+966 50 123 4567</span>
+                        <p class="contact-note">يرجى التواصل خلال 24 ساعة لتأكيد موعد التجربة</p>
+                        <button class="confirm-btn" id="closeContactInfo" style="margin-top: 15px;">تم</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+        <div class="footer-top">
+            <div class="footer-left">
+                <a href="index.html">
+                    <img src="images/logo.png" alt="شعار عيشها" class="footer-logo">
+                </a>
+            </div>
+
+            <div class="footer-right">
+                <a href="#" aria-label="إنستغرام" class="social">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" viewBox="0 0 24 24"><path d="M7 2h10a5 5 0 015 5v10a5 5 0 01-5 5H7a5 5 0 01-5-5V7a5 5 0 015-5zm5 5a5 5 0 100 10 5 5 0 000-10zm6-.8a1 1 0 100 2 1 1 0 000-2z"/></svg>
+                </a>
+
+                <a href="#" aria-label="تويتر" class="social">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" viewBox="0 0 24 24"><path d="M19.6 2.3h2.4l-5.2 6 6.1 8h-4.8l-3.6-4.8-4.1 4.8H3.8l5.6-6.4L3.6 2.3H8l3.2 4.4z"/></svg>
+                </a>
+
+                <a href="mailto:info@3eeshha.com" aria-label="البريد الإلكتروني" class="social">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" viewBox="0 0 24 24"><path d="M4 6h16a2 2 0 012 2v8a2 2 0 01-2 2H4a2 2 0 01-2-2V8a2 2 0 012-2zm0 2l8 5 8-5"/></svg>
+                </a>
+
+                <a href="tel:+966500000000" aria-label="الهاتف" class="social">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" viewBox="0 0 24 24"><path d="M6.6 10.8a15 15 0 006.6 6.6l2.2-2.2a1 1 0 011.1-.2c1.2.5 2.5.8 3.9.8a1 1 0 011 1V20a1 1 0 01-1 1C12.4 21 3 11.6 3 1a1 1 0 011-1h3.2a1 1 0 011 1c0 1.4.3 2.7.8 3.9.1.4 0 .8-.2 1.1l-2.2 2.2z"/></svg>
+                </a>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <p>© 2025 عيشها. جميع الحقوق محفوظة.</p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const bookBtn = document.getElementById('bookBtn');
+            const bookingModal = document.getElementById('bookingModal');
+            const closeModal = document.getElementById('closeModal');
+            const cancelBooking = document.getElementById('cancelBooking');
+            const confirmBooking = document.getElementById('confirmBooking');
+            const closeContactInfo = document.getElementById('closeContactInfo');
+            const bookingForm = document.getElementById('bookingForm');
+            const hostContactInfo = document.getElementById('hostContactInfo');
+            
+            // Open booking modal
+            bookBtn.addEventListener('click', function() {
+                bookingModal.classList.add('active');
+                bookingForm.style.display = 'block';
+                hostContactInfo.style.display = 'none';
+            });
+            
+            // Close modal functions
+            function closeBookingModal() {
+                bookingModal.classList.remove('active');
+            }
+            
+            closeModal.addEventListener('click', closeBookingModal);
+            cancelBooking.addEventListener('click', closeBookingModal);
+            
+            // Confirm booking
+            confirmBooking.addEventListener('click', function() {
+                const agreement = document.getElementById('agreement');
+                
+                if (!agreement.checked) {
+                    alert('يرجى الموافقة على شروط التجربة قبل المتابعة');
+                    return;
+                }
+                
+                // Show host contact info
+                bookingForm.style.display = 'none';
+                hostContactInfo.style.display = 'block';
+            });
+            
+            // Close contact info
+            closeContactInfo.addEventListener('click', closeBookingModal);
+            
+            // Close modal when clicking outside
+            bookingModal.addEventListener('click', function(e) {
+                if (e.target === bookingModal) {
+                    closeBookingModal();
+                }
+            });
+        });
+
+        // In a real application, you would get the experience data from URL parameters or API
+        function loadExperienceData(experienceId) {
+            // This would fetch data from an API based on the experience ID
+            const experienceData = {
+                id: 1,
+                title: "تذوق القهوة العربية في شرفة مع إطلالة الغروب",
+                category: "الطعام والثقافة",
+                city: "الرياض",
+                host: {
+                    name: "سارة المنصور",
+                    rating: 4.8,
+                    avatar: "images/profilePicture.png",
+                    phone: "+966 50 123 4567"
+                },
+                price: 60,
+                type: "paid",
+                description: "جلسة خاصة في الشرفة لتجربة القهوة السعودية التقليدية مع شرح لطريقة التحضير وطقوس التقديم.",
+                image: "image1.jpg"
+            };
+            
+            // Populate the page with the data
+            document.querySelector('.exp-title').textContent = experienceData.title;
+            document.querySelector('.exp-category').textContent = experienceData.category;
+            document.querySelector('.exp-location span:last-child').textContent = experienceData.city + "، السعودية";
+            document.querySelector('.host-name').textContent = experienceData.host.name;
+            document.querySelector('.price').textContent = experienceData.price + " ريال";
+            document.querySelector('.description-text').textContent = experienceData.description;
+            
+            // Set host rating
+            const ratingElement = document.querySelector('.rating-value');
+            ratingElement.textContent = `(${experienceData.host.rating}/5)`;
+            
+            // Set host phone number in contact info
+            document.querySelector('.phone-number').textContent = experienceData.host.phone;
+        }
+
+        // Load data when page loads
+        window.addEventListener('load', function() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const experienceId = urlParams.get('id') || 1;
+            
+            loadExperienceData(experienceId);
+        });
+    </script>
+</body>
+</html>

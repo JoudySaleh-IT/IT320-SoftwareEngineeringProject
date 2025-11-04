@@ -1,0 +1,708 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>لوحة التحكم</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f8f9fa;
+            color: #1D1452;
+            line-height: 1.6;
+        }
+
+        /* Header Styles */
+        .site-header {
+            background-color: #1D1452;
+            padding: 20px 24px;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.25);
+            color: #fff;
+            width: 100%;
+        }
+
+        .header-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr auto 1fr;
+            align-items: center;
+        }
+
+        .header-profile {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+            color: #fff;
+            font-weight: 500;
+            justify-self: start;
+        }
+
+        .profile-avatar {
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            object-fit: cover;
+            background-color: #ccc;
+            border: 2px solid #fff;
+        }
+
+        .header-logo {
+            justify-self: center;
+            text-decoration: none;
+            line-height: 0;
+        }
+
+        .brand-logo {
+            height: 60px;
+            max-height: 60px;
+        }
+
+        .signout-btn {
+            justify-self: end;
+            background-color: #D73863;
+            border: none;
+            color: #fff;
+            font-weight: 500;
+            padding: 12px 20px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: background-color 0.2s ease;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        /* Admin Wrapper */
+        .admin-wrapper {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 0 24px;
+        }
+
+        .page-title {
+            font-size: 2rem;
+            margin-bottom: 10px;
+            text-align: center;
+            color: #1D1452;
+            font-weight: 700;
+        }
+
+        .page-subtitle {
+            text-align: center;
+            color: #666;
+            margin-bottom: 30px;
+            font-size: 1.1rem;
+        }
+
+        /* Admin Controls */
+        .admin-controls {
+            background: white;
+            padding: 24px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            margin-bottom: 30px;
+        }
+
+        .controls-row {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        .search-box {
+            flex: 1;
+            min-width: 250px;
+            padding: 12px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 1rem;
+            outline: none;
+        }
+
+        .filter-select {
+            padding: 12px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 1rem;
+            min-width: 150px;
+            background-color: #fff;
+            color: #1D1452;
+            outline: none;
+        }
+
+        /* Experiences Table */
+        .experiences-table {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+
+        .table-header {
+            display: grid;
+            grid-template-columns: 100px 1fr 120px 120px 120px 150px;
+            padding: 16px 20px;
+            background-color: #1D1452;
+            color: white;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        .table-row {
+            display: grid;
+            grid-template-columns: 100px 1fr 120px 120px 120px 150px;
+            padding: 16px 20px;
+            border-bottom: 1px solid #e0e0e0;
+            align-items: center;
+        }
+
+        .table-row:hover {
+            background-color: #f8f9fa;
+        }
+
+        .table-row:last-child {
+            border-bottom: none;
+        }
+
+        .exp-image {
+            width: 60px;
+            height: 60px;
+            border-radius: 8px;
+            object-fit: cover;
+            background-color: #F5F3FA;
+        }
+
+        .exp-info {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .exp-title {
+            font-weight: 600;
+            color: #1D1452;
+            font-size: 0.95rem;
+        }
+
+        .exp-desc {
+            color: #666;
+            font-size: 0.8rem;
+            line-height: 1.4;
+        }
+
+        .exp-city, .exp-category, .exp-type {
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+
+        .exp-price {
+            color: #D73863;
+            font-weight: 600;
+        }
+
+        .exchange-badge {
+            background-color: #1D1452;
+            color: white;
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-size: 0.7rem;
+            font-weight: 500;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 8px;
+        }
+
+        .edit-btn, .delete-btn {
+            padding: 6px 12px;
+            border: none;
+            border-radius: 6px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .edit-btn {
+            background-color: #1D1452;
+            color: white;
+        }
+
+        .edit-btn:hover {
+            background-color: #15103a;
+        }
+
+        .delete-btn {
+            background-color: #e74c3c;
+            color: white;
+        }
+
+        .delete-btn:hover {
+            background-color: #c0392b;
+        }
+
+        /* Empty State */
+        .empty-state {
+            text-align: center;
+            padding: 60px 20px;
+            color: #666;
+        }
+
+        .empty-icon {
+            font-size: 4rem;
+            margin-bottom: 20px;
+            opacity: 0.5;
+        }
+
+        .empty-state h3 {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+            color: #1D1452;
+        }
+
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.5);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-content {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            max-width: 500px;
+            width: 90%;
+        }
+
+        .modal-title {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            color: #1D1452;
+            text-align: center;
+        }
+
+        .modal-buttons {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .confirm-btn, .cancel-btn {
+            flex: 1;
+            padding: 12px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+        }
+
+        .confirm-btn {
+            background-color: #e74c3c;
+            color: white;
+        }
+
+        .confirm-btn:hover {
+            background-color: #c0392b;
+        }
+
+        .cancel-btn {
+            background-color: #e0e0e0;
+            color: #333;
+        }
+
+        .cancel-btn:hover {
+            background-color: #d0d0d0;
+        }
+
+        /* Footer */
+        .site-footer {
+            background-color: #1D1452;
+            color: #fff;
+            padding: 24px 24px 12px;
+            margin-top: 60px;
+        }
+
+        .footer-top {
+            max-width: 1200px;
+            margin: 0 auto 16px auto;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 16px;
+        }
+
+        .footer-left .footer-logo {
+            height: 48px;
+            max-height: 48px;
+        }
+
+        .footer-right {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .social {
+            color: #fff;
+            display: inline-flex;
+            padding: 8px;
+            border-radius: 8px;
+            transition: color 0.2s, background-color 0.2s;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            border-top: 1px solid rgba(255,255,255,0.15);
+            padding-top: 12px;
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .admin-wrapper {
+                margin: 20px auto;
+            }
+            
+            .table-header,
+            .table-row {
+                grid-template-columns: 80px 1fr 100px 100px 100px 120px;
+                font-size: 0.8rem;
+            }
+            
+            .action-buttons {
+                flex-direction: column;
+            }
+            
+            .controls-row {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            
+            .search-box,
+            .filter-select {
+                min-width: auto;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .table-header {
+                display: none;
+            }
+            
+            .table-row {
+                grid-template-columns: 1fr;
+                gap: 10px;
+                padding: 20px;
+            }
+            
+            .exp-image {
+                justify-self: center;
+            }
+        }
+
+        /* RTL Adjustments */
+        .search-box::placeholder,
+        .filter-select {
+            text-align: right;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="site-header">
+        <div class="header-inner">
+            <a href="index.html" class="header-profile">
+                <img src="images/profilePicture.png" alt="الرئيسية" class="profile-avatar">
+                <span class="profile-label">الرئيسية</span>
+            </a>
+
+            <a href="index.html" class="header-logo">
+                <img src="images/logo.png" alt="شعار عيشها" class="brand-logo">
+            </a>
+
+            <button class="signout-btn">تسجيل الخروج</button>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="admin-wrapper">
+        <h1 class="page-title">لوحة تحكم المشرف</h1>
+        <p class="page-subtitle">إدارة التجارب</p>
+
+        <!-- Admin Controls -->
+        <div class="admin-controls">
+            <div class="controls-row">
+                <input type="text" class="search-box" id="searchBox" placeholder="ابحث في التجارب...">
+                <select class="filter-select" id="typeFilter">
+                    <option value="">جميع الأنواع</option>
+                    <option value="paid">مدفوعة</option>
+                    <option value="exchange">تبادل</option>
+                </select>
+                <select class="filter-select" id="cityFilter">
+                    <option value="">جميع المدن</option>
+                    <option value="الرياض">الرياض</option>
+                    <option value="جدة">جدة</option>
+                    <option value="الدمام">الدمام</option>
+                </select>
+            </div>
+        </div>
+
+        <!-- Experiences Table -->
+        <div class="experiences-table">
+            <div class="table-header">
+                <div>الصورة</div>
+                <div>التجربة</div>
+                <div>المدينة</div>
+                <div>التصنيف</div>
+                <div>النوع</div>
+                <div>الإجراءات</div>
+            </div>
+
+            <div id="experiencesTableBody">
+                <!-- Experiences will be dynamically populated here -->
+            </div>
+        </div>
+
+        <div class="empty-state" id="emptyState" style="display: none;">
+            <div class="empty-icon">📊</div>
+            <h3>لا توجد تجارب</h3>
+            <p>لم يتم إضافة أي تجارب بعد.</p>
+        </div>
+    </main>
+
+    <!-- Delete Confirmation Modal -->
+    <div class="modal" id="deleteModal">
+        <div class="modal-content">
+            <h3 class="modal-title">تأكيد الحذف</h3>
+            <p>هل أنت متأكد من أنك تريد حذف هذه التجربة؟ هذا الإجراء لا يمكن التراجع عنه.</p>
+            <div class="modal-buttons">
+                <button class="confirm-btn" id="confirmDelete">حذف</button>
+                <button class="cancel-btn" id="cancelDelete">إلغاء</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+        <div class="footer-top">
+            <div class="footer-left">
+                <a href="index.html">
+                    <img src="logo.png" alt="شعار عيشها" class="footer-logo">
+                </a>
+            </div>
+
+            <div class="footer-right">
+                <a href="#" aria-label="إنستغرام" class="social">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" viewBox="0 0 24 24"><path d="M7 2h10a5 5 0 015 5v10a5 5 0 01-5 5H7a5 5 0 01-5-5V7a5 5 0 015-5zm5 5a5 5 0 100 10 5 5 0 000-10zm6-.8a1 1 0 100 2 1 1 0 000-2z"/></svg>
+                </a>
+
+                <a href="#" aria-label="تويتر" class="social">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" viewBox="0 0 24 24"><path d="M19.6 2.3h2.4l-5.2 6 6.1 8h-4.8l-3.6-4.8-4.1 4.8H3.8l5.6-6.4L3.6 2.3H8l3.2 4.4z"/></svg>
+                </a>
+
+                <a href="mailto:info@3eeshha.com" aria-label="البريد الإلكتروني" class="social">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" viewBox="0 0 24 24"><path d="M4 6h16a2 2 0 012 2v8a2 2 0 01-2 2H4a2 2 0 01-2-2V8a2 2 0 012-2zm0 2l8 5 8-5"/></svg>
+                </a>
+
+                <a href="tel:+966500000000" aria-label="الهاتف" class="social">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" viewBox="0 0 24 24"><path d="M6.6 10.8a15 15 0 006.6 6.6l2.2-2.2a1 1 0 011.1-.2c1.2.5 2.5.8 3.9.8a1 1 0 011 1V20a1 1 0 01-1 1C12.4 21 3 11.6 3 1a1 1 0 011-1h3.2a1 1 0 011 1c0 1.4.3 2.7.8 3.9.1.4 0 .8-.2 1.1l-2.2 2.2z"/></svg>
+                </a>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <p>© 2025 عيشها. جميع الحقوق محفوظة.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Sample data
+        let experiences = [
+            {
+                id: "1",
+                title: "تذوق القهوة العربية في شرفة مع إطلالة الغروب",
+                description: "تعلم طقوس القهوة السعودية التقليدية مع مرشد محلي في جو خاص على الشرفة.",
+                city: "الرياض",
+                category: "الطعام والثقافة",
+                type: "paid",
+                price: "120",
+                image: null,
+                createdAt: "2024-01-15"
+            },
+            {
+                id: "2",
+                title: "علمني التصوير بالكاميرا / أعلمك التعديل",
+                description: "سأساعدك في تصوير البورتريه في جدة التاريخية، وتساعدني في التعديل باللايت روم.",
+                city: "جدة",
+                category: "ورش العمل",
+                type: "exchange",
+                exchangePreference: "مهارات التصوير",
+                image: null,
+                createdAt: "2024-01-10"
+            },
+            {
+                id: "3",
+                title: "رحلة استكشاف النجوم في الصحراء",
+                description: "استمتع بسحر سماء الصحراء ليلاً مع قصص بدوية تقليدية.",
+                city: "الرياض",
+                category: "الجولات",
+                type: "paid",
+                price: "85",
+                image: null,
+                createdAt: "2024-01-05"
+            },
+            {
+                id: "4",
+                title: "ورشة طبخ أطباق سعودية تقليدية",
+                description: "تبادل مهارات الطبخ وتعلم تحضير المأكولات السعودية الأصيلة.",
+                city: "الدمام",
+                category: "الطعام والثقافة",
+                type: "exchange",
+                exchangePreference: "مهارات الطبخ",
+                image: null,
+                createdAt: "2024-01-01"
+            }
+        ];
+
+        let experienceToDelete = null;
+
+        // Initialize the page
+        document.addEventListener('DOMContentLoaded', function() {
+            renderExperiences();
+            setupEventListeners();
+        });
+
+        function renderExperiences() {
+            const tableBody = document.getElementById('experiencesTableBody');
+            const emptyState = document.getElementById('emptyState');
+            
+            // Get filter values
+            const searchTerm = document.getElementById('searchBox').value.toLowerCase();
+            const typeFilter = document.getElementById('typeFilter').value;
+            const cityFilter = document.getElementById('cityFilter').value;
+            
+            // Filter experiences
+            const filteredExperiences = experiences.filter(exp => {
+                const matchesSearch = exp.title.toLowerCase().includes(searchTerm) || 
+                                    exp.description.toLowerCase().includes(searchTerm);
+                const matchesType = !typeFilter || exp.type === typeFilter;
+                const matchesCity = !cityFilter || exp.city === cityFilter;
+                
+                return matchesSearch && matchesType && matchesCity;
+            });
+            
+            // Clear table
+            tableBody.innerHTML = '';
+            
+            if (filteredExperiences.length === 0) {
+                emptyState.style.display = 'block';
+                return;
+            }
+            
+            emptyState.style.display = 'none';
+            
+            // Render experiences
+            filteredExperiences.forEach(exp => {
+                const row = document.createElement('div');
+                row.className = 'table-row';
+                
+                const priceDisplay = exp.type === 'paid' 
+                    ? `<span class="exp-price">${exp.price} ريال</span>`
+                    : `<span class="exchange-badge">تبادل</span>`;
+                
+                row.innerHTML = `
+                    <div>
+                        <div class="exp-image"></div>
+                    </div>
+                    <div class="exp-info">
+                        <div class="exp-title">${exp.title}</div>
+                        <div class="exp-desc">${exp.description}</div>
+                    </div>
+                    <div class="exp-city">${exp.city}</div>
+                    <div class="exp-category">${exp.category}</div>
+                    <div class="exp-type">${priceDisplay}</div>
+                    <div class="action-buttons">
+                        <button class="edit-btn" onclick="editExperience('${exp.id}')">تعديل</button>
+                        <button class="delete-btn" onclick="showDeleteModal('${exp.id}')">حذف</button>
+                    </div>
+                `;
+                
+                tableBody.appendChild(row);
+            });
+        }
+
+        function setupEventListeners() {
+            // Search and filter events
+            document.getElementById('searchBox').addEventListener('input', renderExperiences);
+            document.getElementById('typeFilter').addEventListener('change', renderExperiences);
+            document.getElementById('cityFilter').addEventListener('change', renderExperiences);
+            
+            // Delete modal events
+            document.getElementById('confirmDelete').addEventListener('click', confirmDelete);
+            document.getElementById('cancelDelete').addEventListener('click', hideDeleteModal);
+            
+            // Close modal when clicking outside
+            document.getElementById('deleteModal').addEventListener('click', function(e) {
+                if (e.target === this) {
+                    hideDeleteModal();
+                }
+            });
+        }
+
+        function showDeleteModal(experienceId) {
+            experienceToDelete = experienceId;
+            document.getElementById('deleteModal').style.display = 'flex';
+        }
+
+        function hideDeleteModal() {
+            experienceToDelete = null;
+            document.getElementById('deleteModal').style.display = 'none';
+        }
+
+        function confirmDelete() {
+            if (experienceToDelete) {
+                experiences = experiences.filter(exp => exp.id !== experienceToDelete);
+                renderExperiences();
+                hideDeleteModal();
+            }
+        }
+
+        function editExperience(experienceId) {
+            const experience = experiences.find(exp => exp.id === experienceId);
+            if (experience) {
+                // Redirect to edit page
+                window.location.href = `edit_experience.html?id=${experienceId}`;
+            }
+        }
+    </script>
+</body>
+</html>

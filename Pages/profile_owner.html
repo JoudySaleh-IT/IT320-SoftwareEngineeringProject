@@ -1,0 +1,1116 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+
+    <title>الملف الشخصي - عيشها</title>
+    <style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+    font-family: system-ui, sans-serif;
+    background-color: #f8f9fa;
+    color: #1D1452;
+    direction: rtl;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Header Styles */
+.site-header {
+    background-color: #1D1452;
+    padding: 20px 24px;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.25);
+    color: #fff;
+    width: 100%;
+}
+
+.header-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: center;
+}
+
+.header-profile {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    text-decoration: none;
+    color: #fff;
+    font-weight: 500;
+    justify-self: start;
+}
+
+.profile-avatar {
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    object-fit: cover;
+    background-color: #ccc;
+    border: 2px solid #fff;
+}
+
+.header-logo {
+    justify-self: center;
+    text-decoration: none;
+    line-height: 0;
+}
+
+.brand-logo {
+    height: 60px;
+    max-height: 60px;
+}
+
+.signout-btn {
+    justify-self: end;
+    background-color: #D73863;
+    border: none;
+    color: #fff;
+    font-weight: 500;
+    padding: 12px 20px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background-color 0.2s ease;
+    text-decoration: none; /* إضافة هذا السطر */
+    display: inline-block; /* إضافة هذا السطر */
+    text-align: center; /* إضافة هذا السطر */
+}
+
+.signout-btn:hover {
+    background-color: #b82d54;
+}
+
+
+.edit-icon {
+  color: #b82d54;     /* soft pink */
+  font-size: 26px;    /* adjust size as you like */
+  transition: color 0.2s ease;
+}
+
+.edit-icon:hover {
+  color: #6e162f;     /* darker pink on hover */
+}
+
+
+/* Profile Header */
+.profile-header {
+    max-width: 800px;
+    margin: 40px auto;
+    padding: 0 24px;
+    text-align: center;
+}
+
+.profile-picture-large {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin: 0 auto 20px;
+    border: 4px solid #1D1452;
+    background-color: #F5F3FA;
+}
+
+.profile-name {
+    font-size: 2rem;
+    margin-bottom: 10px;
+    color: #1D1452;
+}
+
+.profile-bio {
+    font-size: 1.1rem;
+    color: #666;
+    margin-bottom: 20px;
+    line-height: 1.5;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.rating-stars {
+    display: flex;
+    justify-content: center;
+    gap: 4px;
+    margin-bottom: 30px;
+}
+
+.star {
+    color: #FFD700;
+    font-size: 1.5rem;
+}
+
+/* Tabs */
+.profile-tabs {
+    display: flex;
+    justify-content: center;
+    border-bottom: 2px solid #e0e0e0;
+    margin-bottom: 30px;
+}
+
+.profile-tab {
+    padding: 12px 24px;
+    background: none;
+    border: none;
+    font-size: 1rem;
+    font-weight: 500;
+    color: #666;
+    cursor: pointer;
+    transition: all 0.3s;
+    border-bottom: 3px solid transparent;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.profile-tab.active {
+    color: #1D1452;
+    border-bottom-color: #D73863;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Content Sections */
+.tab-content {
+    display: none;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 24px;
+}
+
+.tab-content.active {
+    display: block;
+}
+
+/* Cards Grid */
+.cards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 24px;
+    margin-bottom: 40px;
+}
+
+.exp-card {
+    background: white;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.exp-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+}
+
+.exp-card-img {
+    width: 100%;
+    height: 200px;
+    background-color: #F5F3FA;
+    object-fit: cover;
+}
+
+.exp-card-body {
+    padding: 20px;
+}
+
+.exp-card-toprow {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+}
+
+.exp-city {
+    color: #666;
+    font-size: 0.9rem;
+}
+
+.exp-price {
+    color: #D73863;
+    font-weight: 600;
+    font-size: 1.1rem;
+}
+
+.exchange-label {
+    background-color: #1D1452;
+    color: white;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 500;
+}
+
+.exp-title {
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin-bottom: 8px;
+    color: #1D1452;
+}
+
+.exp-desc {
+    color: #666;
+    line-height: 1.5;
+    margin-bottom: 15px;
+}
+
+.exp-category {
+    display: inline-block;
+    background: #F5F3FA;
+    color: #1D1452;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 500;
+}
+
+/* Action Buttons */
+.action-buttons {
+    display: flex;
+    gap: 10px;
+    margin-top: 15px;
+}
+
+.edit-btn, .delete-btn, .rate-btn {
+    padding: 8px 16px;
+    border: none;
+    border-radius: 6px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+    flex: 1;
+    text-align: center;
+    text-decoration: none;
+    font-size: 0.9rem;
+}
+
+.edit-btn {
+    background-color: #1D1452;
+    color: white;
+}
+
+.delete-btn {
+    background-color: #D73863;
+    color: white;
+}
+
+.rate-btn {
+    background-color: #D73863;
+    color: white;
+}
+
+.edit-btn:hover {
+    background-color: #15103a;
+}
+
+.delete-btn:hover {
+    background-color: #b82d54;
+}
+
+.rate-btn:hover {
+    background-color: #b82d54;
+}
+
+/* Request Cards */
+.request-card {
+    background: white;
+    border-radius: 12px;
+    padding: 20px;
+    margin-bottom: 10px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.request-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 16px;
+}
+
+.requester-info {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.requester-avatar {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    object-fit: cover;
+    background-color: #F5F3FA;
+}
+
+.requests-wrapper {
+    max-width: 700px;
+    margin: 0 auto;
+}
+
+.requester-details h3 {
+    font-weight: 600;
+    color: #1D1452;
+    margin-bottom: 4px;
+}
+
+.requester-details p {
+    color: #666;
+    font-size: 0.9rem;
+}
+
+.experience-info {
+    text-align: left;
+}
+
+.experience-name {
+    color: #15103a;
+    font-weight: 500;
+    font-size: 1rem;
+    margin-bottom: 4px;
+}
+
+.request-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 16px;
+}
+
+.accept-btn, .reject-btn {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 6px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+    flex: 1;
+    text-align: center;
+    font-size: 0.9rem;
+}
+
+.accept-btn {
+    background-color: #226031;
+    color: white;
+}
+
+.reject-btn {
+    background-color: #D73863;
+    color: white;
+}
+
+.accept-btn:hover {
+    background-color: #22472a;
+}
+
+.reject-btn:hover {
+    background-color: #b82d54;
+}
+
+/* Reviews */
+.review-card {
+    background: white;
+    border-radius: 12px;
+    padding: 24px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.review-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 16px;
+}
+
+.reviewer-info {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.reviewer-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+    background-color: #F5F3FA;
+}
+
+.reviewer-name {
+    font-weight: 600;
+    color: #1D1452;
+}
+
+.review-experience {
+    color: #1D1452;
+    font-weight: 500;
+    font-size: 0.9rem;
+}
+
+.review-comment {
+    color: #333;
+    line-height: 1.6;
+}
+
+/* Footer */
+.site-footer {
+    background-color: #1D1452;
+    color: #fff;
+    padding: 24px 24px 12px;
+    margin-top: 60px;
+}
+
+.footer-top {
+    max-width: 1200px;
+    margin: 0 auto 16px auto;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 16px;
+}
+
+.footer-left .footer-logo {
+    height: 48px;
+    max-height: 48px;
+}
+
+.footer-right {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.social {
+    color: #fff;
+    display: inline-flex;
+    padding: 8px;
+    border-radius: 8px;
+    transition: color 0.2s, background-color 0.2s;
+}
+
+.footer-bottom {
+    text-align: center;
+    max-width: 1200px;
+    margin: 0 auto;
+    border-top: 1px solid rgba(255,255,255,0.15);
+    padding-top: 12px;
+    font-size: 0.8rem;
+    opacity: 0.9;
+}
+
+.status-btn {
+    background-color: #e0e0e0;
+    color: #6b6b6b;
+    border: none;
+    border-radius: 8px;
+    padding: 10px 20px;
+    font-weight: 500;
+    font-size: 0.9rem;
+    cursor: default;
+    width: 100%;
+    text-align: center;
+    transition: background-color 0.2s;
+}
+
+.status-btn:hover {
+    background-color: #d5d5d5;
+}
+
+/* Rating Modal (larger) */
+.rating-modal {
+    position: fixed;
+    inset: 0;
+    background-color: rgba(0,0,0,0.5);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 2000;
+}
+
+.rating-modal.active {
+    display: flex;
+}
+
+.rating-modal-content {
+    background: #fff;
+    border-radius: 18px;
+    max-width: 680px;        /* bigger window */
+    width: 95%;
+    padding: 36px 36px 28px; /* more inner space */
+    box-shadow: 0 10px 30px rgba(0,0,0,0.25);
+}
+
+.rating-modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.rating-modal-title {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #1D1452;
+}
+
+.modal-exp-name {
+    font-size: 1.1rem;
+    color: #555;
+    margin-bottom: 16px;
+}
+
+.modal-close-btn {
+    background: none;
+    border: none;
+    font-size: 1.8rem;
+    cursor: pointer;
+    color: #666;
+}
+
+.stars-input {
+    display: flex;
+    justify-content: center;
+    gap: 6px;
+    direction: ltr;
+    margin: 12px 0 20px;
+}
+
+.stars-input input {
+    display: none;
+}
+
+.stars-input label {
+    font-size: 2.5rem;
+    color: #ccc;
+    cursor: pointer;
+    transition: color 0.2s;
+}
+
+.stars-input input:checked ~ label {
+    color: #FFD700;
+}
+
+.stars-input label:hover,
+.stars-input label:hover ~ label {
+    color: #FFD700;
+}
+
+.rating-modal textarea {
+    width: 100%;
+    border-radius: 10px;
+    border: 1px solid #ddd;
+    padding: 14px;
+    font-family: inherit;
+    resize: vertical;
+    min-height: 120px;
+    margin-bottom: 20px;
+    font-size: 1rem;
+}
+
+.rating-modal textarea:focus {
+    outline: none;
+    border-color: #1D1452;
+}
+
+.rating-submit-btn {
+    width: 100%;
+    padding: 14px 20px;
+    border-radius: 10px;
+    border: none;
+    background-color: #D73863;
+    color: #fff;
+    font-weight: 600;
+    cursor: pointer;
+    font-size: 1.05rem;
+    transition: background-color 0.2s;
+}
+
+.rating-submit-btn:hover {
+    background-color: #b82d54;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .profile-header {
+        margin: 20px auto;
+    }
+    
+    .profile-name {
+        font-size: 1.5rem;
+    }
+    
+    .cards-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .profile-tabs {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .profile-tab {
+        width: 100%;
+        text-align: center;
+    }
+    
+    .action-buttons {
+        flex-direction: column;
+    }
+    
+    .request-header {
+        flex-direction: column;
+        gap: 12px;
+    }
+    
+    .experience-info {
+        text-align: right;
+    }
+}
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="site-header">
+        <div class="header-inner">
+            <a href="profile_owner.html" class="header-profile">
+                <img src="images/profilePicture.png" alt="الملف الشخصي" class="profile-avatar">
+                <span class="profile-label">الملف الشخصي</span>
+            </a>
+
+            <a href="index.html" class="header-logo">
+                <img src="images/logo.png" alt="شعار عيشها" class="brand-logo">
+            </a>
+
+<a href="index.html" class="signout-btn">تسجيل الخروج</a>        </div>
+    </header>
+
+    <!-- Profile Header -->
+    <section class="profile-header">
+        <img src="images/profilePicture.png" alt="صورة الملف الشخصي" class="profile-picture-large">
+        <h1 class="profile-name">سارة المنصور</h1>
+        <p class="profile-bio">مهتمة بالثقافة ومحبة للتصوير.<br> أستمتع بمشاركة التجارب السعودية الأصيلة والتعلم من الآخرين من خلال التبادل الثقافي.</p>
+        <div class="rating-stars">
+            <span class="star">★</span>
+            <span class="star">★</span>
+            <span class="star">★</span>
+            <span class="star">★</span>
+            <span class="star">★</span>
+            <span style="margin-left: 10px; color: #666;">(4.8/5)</span>
+                <!-- زر تعديل الملف الشخصي -->
+<a href="edit_profile.html" class="edit-icon-btn" title="تعديل الملف الشخصي">
+  <i class="bi bi-pencil-square"></i>
+</a>
+
+        </div>
+    </section>
+
+    <!-- Tabs -->
+    <div class="profile-tabs">
+        <button class="profile-tab active" data-tab="hosting">التجارب المعروضة</button>
+        <button class="profile-tab" data-tab="attended">تجاربي</button>
+        <button class="profile-tab" data-tab="requests">طلبات المشاركة</button>
+        <button class="profile-tab" data-tab="reviews">التقييمات</button>
+    </div>
+
+    <!-- Hosting Tab -->
+    <section id="hosting" class="tab-content active">
+        <div class="cards-grid">
+            <!-- Experience 1 -->
+            <article class="exp-card">
+                <img src="images/Ex1.jpg" alt="صورة القهوة السعودية" class="exp-card-img">
+                <div class="exp-card-body">
+                    <div class="exp-card-toprow">
+                        <span class="exp-city">الرياض</span>
+                        <span class="exp-price">60 ريال</span>
+                    </div>
+                    <h3 class="exp-title">صنع القهوة السعودية التقليدية</h3>
+                    <p class="exp-desc">تعلم فن تحضير القهوة السعودية الأصيلة بالطرق التقليدية والبهارات.</p>
+                    <span class="exp-category">الطعام والثقافة</span>
+                    <div class="action-buttons">
+                        <a href="edit_experience.html?id=1" class="edit-btn">تعديل</a>
+                        <button class="delete-btn" onclick="confirmDelete(1)">حذف</button>
+                    </div>
+                </div>
+            </article>
+
+            <!-- Experience 2 -->
+            <article class="exp-card">
+                <img src="images/Ex2.jpg" alt="صورة التصوير" class="exp-card-img">
+                <div class="exp-card-body">
+                    <div class="exp-card-toprow">
+                        <span class="exp-city">الرياض</span>
+                        <span class="exchange-label">تبادل</span>
+                    </div>
+                    <h3 class="exp-title">تعليم أساسيات التصوير</h3>
+                    <p class="exp-desc">جرّب متعة تعلم التصوير خطوة بخطوة بأسلوب سهل ومُلهم.</p>
+                    <span class="exp-category">ورش العمل</span>
+                    <div class="action-buttons">
+                        <a href="edit_experience.html?id=2" class="edit-btn">تعديل</a>
+                        <button class="delete-btn" onclick="confirmDelete(2)">حذف</button>
+                    </div>
+                </div>
+            </article>
+
+            <!-- Experience 3 -->
+            <article class="exp-card">
+                <img src="images/Ex3.jpg" alt="صورة الألعاب" class="exp-card-img">
+                <div class="exp-card-body">
+                    <div class="exp-card-toprow">
+                        <span class="exp-city">الرياض</span>
+                        <span class="exp-price">50 ريال</span>
+                    </div>
+                    <h3 class="exp-title">قيم نايت</h3>
+                    <p class="exp-desc">عِش أجواء تنافسية ممتعة في ليلة ألعاب جماعية مليئة بالحماس والضحك.</p>
+                    <span class="exp-category">الترفيه</span>
+                    <div class="action-buttons">
+                        <a href="edit_experience.html?id=3" class="edit-btn">تعديل</a>
+                        <button class="delete-btn" onclick="confirmDelete(3)">حذف</button>
+                    </div>
+                </div>
+            </article>
+        </div>
+    </section>
+
+    <!-- Requests Tab -->
+    <section id="requests" class="tab-content">
+        <div class="requests-wrapper">
+            <!-- Request 2 -->
+            <div class="request-card">
+                <div class="request-header">
+                    <div class="requester-info">
+                        <img src="images/user2.png" alt="صورة المستخدم" class="requester-avatar">
+                        <div class="requester-details">
+                            <h3>فاطمة السديري</h3>
+                            <p>عدد الأشخاص: 1</p>
+                        </div>
+                    </div>
+                    <div class="experience-info">
+                        <div class="experience-name">تعليم أساسيات التصوير</div>
+                    </div>
+                </div>
+                <div class="request-actions">
+                    <button class="accept-btn" onclick="handleRequest(2, 'accept')">قبول</button>
+                    <button class="reject-btn" onclick="handleRequest(2, 'reject')">رفض</button>
+                </div>
+            </div>
+
+            <!-- Request 3 -->
+            <div class="request-card">
+                <div class="request-header">
+                    <div class="requester-info">
+                        <img src="images/user3.png" alt="صورة المستخدم" class="requester-avatar">
+                        <div class="requester-details">
+                            <h3>خلود القحطاني</h3>
+                            <p>عدد الأشخاص: 4</p>
+                        </div>
+                    </div>
+                    <div class="experience-info">
+                        <div class="experience-name">قيم نايت</div>
+                    </div>
+                </div>
+                <div class="request-actions">
+                    <button class="accept-btn" onclick="handleRequest(3, 'accept')">قبول</button>
+                    <button class="reject-btn" onclick="handleRequest(3, 'reject')">رفض</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Attended Tab -->
+    <section id="attended" class="tab-content">
+        <div class="cards-grid">
+            <!-- Experience request (بانتظار القبول) -->
+            <article class="exp-card">
+                <img src="images/ExWait.jpg" alt="صورة بوكيه ورد" class="exp-card-img">
+                <div class="exp-card-body">
+                    <div class="exp-card-toprow">
+                        <span class="exp-city">الرياض</span>
+                        <span class="exchange-label">تبادل</span>
+                    </div>
+                    <h3 class="exp-title">طريقة عمل بوكيه ورود</h3>
+                    <p class="exp-desc">
+                        عيشي تجربة تنسيق باقة ورد من الصفر؛ من اختيار الأزهار حتى لفّ البوكيه بشكل أنيق وجاهز للإهداء.
+                    </p>
+                    <span class="exp-category">ورش العمل</span>
+                    <div class="action-buttons">
+                        <button class="status-btn">بانتظار القبول</button>
+                    </div>
+                </div>
+            </article>
+
+            <!-- Attended Experience 1 -->
+            <article class="exp-card">
+                <img src="images/Ex4.1.jpg" alt="صورة السينما" class="exp-card-img">
+                <div class="exp-card-body">
+                    <div class="exp-card-toprow">
+                        <span class="exp-city">الرياض</span>
+                        <span class="exp-price">50 ريال</span>
+                    </div>
+                    <h3 class="exp-title">سينما في الهواء الطلق</h3>
+                    <p class="exp-desc">استمتع بمشاهدة فيلمك المفضل تحت النجوم مع وجبات خفيفة ومشروبات.</p>
+                    <span class="exp-category">الترفيه</span>
+                    <div class="action-buttons">
+                        <a href="rating.html?exp=1" class="rate-btn">تقييم التجربة</a>
+                    </div>
+                </div>
+            </article>
+
+            <!-- Attended Experience 2 -->
+            <article class="exp-card">
+                <img src="images/Ex5.jpg" alt="صورة الطبخ" class="exp-card-img">
+                <div class="exp-card-body">
+                    <div class="exp-card-toprow">
+                        <span class="exp-city">الرياض</span>
+                        <span class="exchange-label">تبادل</span>
+                    </div>
+                    <h3 class="exp-title">طبخ الأطباق السعودية التقليدية</h3>
+                    <p class="exp-desc">تبادل مهارات الطبخ وتعلم تحضير المأكولات السعودية الأصيلة.</p>
+                    <span class="exp-category">الطعام والثقافة</span>
+                    <div class="action-buttons">
+                        <a href="rating.html?exp=2" class="rate-btn">تقييم التجربة</a>
+                    </div>
+                </div>
+            </article>
+        </div>
+    </section>
+
+    <!-- Reviews Tab -->
+    <section id="reviews" class="tab-content">
+        <!-- Review 1 -->
+        <div class="review-card">
+            <div class="review-header">
+                <div class="reviewer-info">
+                    <img src="images/user1.png" alt="المقيّم" class="reviewer-avatar">
+                    <div>
+                        <div class="reviewer-name">أسماء حسن</div>
+                        <div class="rating-stars" style="justify-content: flex-start;">
+                            <span class="star">★</span>
+                            <span class="star">★</span>
+                            <span class="star">★</span>
+                            <span class="star">★</span>
+                            <span class="star">★</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="review-experience">صنع القهوة السعودية التقليدية</div>
+            </div>
+            <p class="review-comment">سارة مضيفة رائعة! معرفتها بتقاليد القهوة السعودية مذهلة. التجربة كانت أصيلة وممتعة للغاية. أوصي بها بشدة!</p>
+        </div>
+
+        <!-- Review 2 -->
+        <div class="review-card">
+            <div class="review-header">
+                <div class="reviewer-info">
+                    <img src="images/user2.png" alt="المقيّم" class="reviewer-avatar">
+                    <div>
+                        <div class="reviewer-name">ليلى محمد</div>
+                        <div class="rating-stars" style="justify-content: flex-start;">
+                            <span class="star">★</span>
+                            <span class="star">★</span>
+                            <span class="star">★</span>
+                            <span class="star">★</span>
+                            <span class="star">★</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="review-experience">تعلم أساسيات التصوير</div>
+            </div>
+            <p class="review-comment">كانت تجربة رائعة! سارة تشرح بخطوات بسيطة وتخلي كل شيء واضح حتى للمبتدئين. حسّيت إني فعلاً طورت نظرتي في التكوين والإضاءة. أنصح فيها لكل شخص حاب يبدأ عالم التصوير.</p>
+        </div>
+
+        <!-- Review 3 -->
+        <div class="review-card">
+            <div class="review-header">
+                <div class="reviewer-info">
+                    <img src="images/user3.png" alt="المقيّم" class="reviewer-avatar">
+                    <div>
+                        <div class="reviewer-name">نوره العتيبي</div>
+                        <div class="rating-stars" style="justify-content: flex-start;">
+                            <span class="star">★</span>
+                            <span class="star">★</span>
+                            <span class="star">★</span>
+                            <span class="star">★</span>
+                            <span class="star">★</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="review-experience">قيم نايت</div>
+            </div>
+            <p class="review-comment">التجربة كانت مليانة حماس وضحك! الأجواء كانت مرّة تفاعلية والتنظيم ممتاز، حسّيت الوقت طار من كثر المتعة. أنصح أي أحد يحب الألعاب الجماعية يجربها.</p>
+        </div>
+    </section>
+
+    <!-- Rating Modal -->
+    <div class="rating-modal" id="ratingModal">
+        <div class="rating-modal-content">
+            <div class="rating-modal-header">
+                <h2 class="rating-modal-title">تقييم التجربة</h2>
+                <button class="modal-close-btn" id="closeRatingModal" aria-label="إغلاق">×</button>
+            </div>
+
+            <div class="modal-exp-name" id="modalExpTitle">
+                <!-- اسم التجربة ينعرض هنا -->
+            </div>
+
+            <form id="ratingForm">
+                <div style="text-align:center; margin-bottom: 4px;">اختر التقييم:</div>
+                <div class="stars-input">
+                    <input type="radio" id="star5" name="rating" value="5">
+                    <label for="star5">★</label>
+
+                    <input type="radio" id="star4" name="rating" value="4">
+                    <label for="star4">★</label>
+
+                    <input type="radio" id="star3" name="rating" value="3">
+                    <label for="star3">★</label>
+
+                    <input type="radio" id="star2" name="rating" value="2">
+                    <label for="star2">★</label>
+
+                    <input type="radio" id="star1" name="rating" value="1">
+                    <label for="star1">★</label>
+                </div>
+
+                <textarea id="ratingComment" placeholder="اكتبي تعليقك عن التجربة (اختياري)"></textarea>
+
+                <button type="submit" class="rating-submit-btn">إرسال التقييم</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+        <div class="footer-top">
+            <div class="footer-left">
+                <a href="index.html">
+                    <img src="images/logo.png" alt="شعار عيشها" class="footer-logo">
+                </a>
+            </div>
+
+            <div class="footer-right">
+                <a href="#" aria-label="إنستغرام" class="social">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" viewBox="0 0 24 24"><path d="M7 2h10a5 5 0 015 5v10a5 5 0 01-5 5H7a5 5 0 01-5-5V7a5 5 0 015-5zm5 5a5 5 0 100 10 5 5 0 000-10zm6-.8a1 1 0 100 2 1 1 0 000-2z"/></svg>
+                </a>
+
+                <a href="#" aria-label="تويتر" class="social">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" viewBox="0 0 24 24"><path d="M19.6 2.3h2.4l-5.2 6 6.1 8h-4.8l-3.6-4.8-4.1 4.8H3.8l5.6-6.4L3.6 2.3H8l3.2 4.4z"/></svg>
+                </a>
+
+                <a href="mailto:info@3eeshha.com" aria-label="البريد الإلكتروني" class="social">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" viewBox="0 0 24 24"><path d="M4 6h16a2 2 0 012 2v8a2 2 0 01-2 2H4a2 2 0 01-2-2V8a2 2 0 012-2zm0 2l8 5 8-5"/></svg>
+                </a>
+
+                <a href="tel:+966500000000" aria-label="الهاتف" class="social">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" viewBox="0 0 24 24"><path d="M6.6 10.8a15 15 0 006.6 6.6l2.2-2.2a1 1 0 011.1-.2c1.2.5 2.5.8 3.9.8a1 1 0 011 1V20a1 1 0 01-1 1C12.4 21 3 11.6 3 1a1 1 0 011-1h3.2a1 1 0 011 1c0 1.4.3 2.7.8 3.9.1.4 0 .8-.2 1.1l-2.2 2.2z"/></svg>
+                </a>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <p>© 2025 عيشها. جميع الحقوق محفوظة.</p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Tab functionality
+            const tabs = document.querySelectorAll('.profile-tab');
+            const tabContents = document.querySelectorAll('.tab-content');
+            
+            tabs.forEach(tab => {
+                tab.addEventListener('click', () => {
+                    tabs.forEach(t => t.classList.remove('active'));
+                    tabContents.forEach(content => content.classList.remove('active'));
+                    
+                    tab.classList.add('active');
+                    
+                    const tabId = tab.getAttribute('data-tab');
+                    document.getElementById(tabId).classList.add('active');
+                });
+            });
+
+            // Rating modal elements
+            const ratingModal = document.getElementById('ratingModal');
+            const closeRatingModal = document.getElementById('closeRatingModal');
+            const modalExpTitle = document.getElementById('modalExpTitle');
+            const ratingForm = document.getElementById('ratingForm');
+
+            // فتح المودال عند الضغط على "تقييم التجربة"
+            document.querySelectorAll('.rate-btn').forEach(btn => {
+                btn.addEventListener('click', function(e) {
+                    e.preventDefault(); // ما نروح لصفحة ثانية
+                    const card = btn.closest('.exp-card');
+                    const title = card.querySelector('.exp-title')?.textContent || 'التجربة';
+                    modalExpTitle.textContent = title;
+                    ratingModal.classList.add('active');
+                });
+            });
+
+            // إغلاق المودال بزر ×
+            closeRatingModal.addEventListener('click', function() {
+                ratingModal.classList.remove('active');
+                ratingForm.reset();
+            });
+
+            // إغلاق المودال عند الضغط على الخلفية
+            ratingModal.addEventListener('click', function(e) {
+                if (e.target === ratingModal) {
+                    ratingModal.classList.remove('active');
+                    ratingForm.reset();
+                }
+            });
+
+            // إرسال التقييم (حالياً alert فقط)
+            ratingForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+
+                const ratingInput = document.querySelector('input[name="rating"]:checked');
+                const rating = ratingInput ? ratingInput.value : null;
+                const comment = document.getElementById('ratingComment').value.trim();
+
+                if (!rating) {
+                    alert('فضلاً اختاري التقييم بالنجوم قبل الإرسال.');
+                    return;
+                }
+
+                // هنا تربطينه مع الباك إند (fetch/AJAX)
+                alert('شكراً لتقييمك!\nالتقييم: ' + rating + ' / 5');
+
+                ratingModal.classList.remove('active');
+                ratingForm.reset();
+            });
+        });
+
+        // Delete confirmation
+        function confirmDelete(experienceId) {
+            if (confirm('هل أنت متأكد من حذف هذه التجربة؟ لا يمكن التراجع عن هذا الإجراء.')) {
+                alert('تم حذف التجربة بنجاح!');
+                location.reload();
+            }
+        }
+
+        // Handle request actions
+        function handleRequest(requestId, action) {
+            if (action === 'accept') {
+                if (confirm('هل تريد قبول طلب المشاركة هذا؟')) {
+                    alert('تم قبول طلب المشاركة بنجاح!');
+                    document.querySelector(`.request-card:nth-child(${requestId})`).style.display = 'none';
+                }
+            } else if (action === 'reject') {
+                if (confirm('هل تريد رفض طلب المشاركة هذا؟')) {
+                    alert('تم رفض طلب المشاركة.');
+                    document.querySelector(`.request-card:nth-child(${requestId})`).style.display = 'none';
+                }
+            }
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تسجيل الدخول - عيشها</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f8f9fa;
+            color: #1D1452;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            line-height: 1.6;
+        }
+
+        /* Header Styles */
+        .site-header {
+            background-color: #1D1452;
+            padding: 20px 24px;
+            color: #fff;
+            width: 100%;
+        }
+
+        .header-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .header-logo {
+            text-decoration: none;
+            line-height: 0;
+        }
+
+        .brand-logo {
+            height: 60px;
+            max-height: 60px;
+        }
+
+        /* Main Content */
+        .auth-container {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 40px 24px;
+        }
+
+        .auth-card {
+            background: white;
+            padding: 50px;
+            border-radius: 16px;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+            width: 100%;
+            max-width: 800px; /* زيادة العرض من 400px إلى 500px */
+        }
+
+        .auth-title {
+            font-size: 2.2rem;
+            margin-bottom: 15px;
+            text-align: center;
+            color: #1D1452;
+            font-weight: 700;
+        }
+
+        .auth-subtitle {
+            text-align: center;
+            color: #666;
+            margin-bottom: 40px;
+            font-size: 1.2rem;
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: 600;
+            color: #1D1452;
+            font-size: 1.1rem;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            font-size: 1.1rem;
+            transition: border-color 0.3s;
+            font-family: inherit;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: #1D1452;
+        }
+
+        .admin-checkbox-container {
+            display: flex;
+            align-items: center;
+            margin: 20px 0;
+        }
+
+        .admin-checkbox {
+            margin-left: 10px;
+            width: 18px;
+            height: 18px;
+            cursor: pointer;
+        }
+
+        .admin-label {
+            font-size: 1rem;
+            color: #1D1452;
+            cursor: pointer;
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 16px;
+            background-color: #D73863;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 1.2rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            margin-top: 15px;
+            font-family: inherit;
+        }
+
+        .submit-btn:hover {
+            background-color: #b82d54;
+        }
+
+        .auth-footer {
+            text-align: center;
+            margin-top: 35px;
+            padding-top: 25px;
+            border-top: 1px solid #e0e0e0;
+            font-size: 1.1rem;
+        }
+
+        .auth-link {
+            color: #1D1452;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .auth-link:hover {
+            text-decoration: underline;
+        }
+
+        .error-message {
+            color: #e74c3c;
+            font-size: 1rem;
+            margin-top: 8px;
+            display: none;
+        }
+
+        /* Footer */
+        .site-footer {
+            background-color: #1D1452;
+            color: #fff;
+            padding: 24px 24px 12px;
+            margin-top: auto;
+        }
+
+        .footer-top {
+            max-width: 1200px;
+            margin: 0 auto 16px auto;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 16px;
+        }
+
+        .footer-left .footer-logo {
+            height: 48px;
+            max-height: 48px;
+        }
+
+        .footer-right {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .social {
+            color: #fff;
+            display: inline-flex;
+            padding: 8px;
+            border-radius: 8px;
+            transition: color 0.2s, background-color 0.2s;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            border-top: 1px solid rgba(255,255,255,0.15);
+            padding-top: 12px;
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+
+        @media (max-width: 768px) {
+            .auth-card {
+                padding: 40px 30px;
+                max-width: 90%;
+            }
+            
+            .auth-title {
+                font-size: 1.8rem;
+            }
+            
+            .auth-subtitle {
+                font-size: 1.1rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .auth-card {
+                padding: 30px 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="site-header">
+        <div class="header-inner">
+            <a href="index.html" class="header-logo">
+                <img src="images/logo.png" alt="شعار عيشها" class="brand-logo">
+            </a>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="auth-container">
+        <div class="auth-card">
+            <h1 class="auth-title">مرحباً بعودتك</h1>
+            <p class="auth-subtitle">سجل الدخول إلى حسابك</p>
+
+            <form id="loginForm">
+                <div class="form-group">
+                    <label for="email" class="form-label">البريد الإلكتروني</label>
+                    <input type="email" id="email" class="form-input" placeholder="أدخل بريدك الإلكتروني" required>
+                    <div class="error-message" id="emailError">يرجى إدخال بريد إلكتروني صحيح</div>
+                </div>
+
+                <div class="form-group">
+                    <label for="password" class="form-label">كلمة المرور</label>
+                    <input type="password" id="password" class="form-input" placeholder="أدخل كلمة المرور" required>
+                    <div class="error-message" id="passwordError">يرجى إدخال كلمة المرور</div>
+                </div>
+
+                <div class="admin-checkbox-container">
+                    <input type="checkbox" id="adminCheckbox" class="admin-checkbox">
+                    <label for="adminCheckbox" class="admin-label">تسجيل دخول كمسؤول</label>
+                </div>
+
+                <button type="submit" class="submit-btn" id="submitBtn">تسجيل الدخول</button>
+            </form>
+
+            <div class="auth-footer">
+                <p>ليس لديك حساب؟ <a href="signup.html" class="auth-link">إنشاء حساب جديد</a></p>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+        <div class="footer-top">
+            <div class="footer-left">
+                <a href="index.html">
+                    <img src="images/logo.png" alt="شعار عيشها" class="footer-logo">
+                </a>
+            </div>
+
+            <div class="footer-right">
+                <a href="#" aria-label="إنستغرام" class="social">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" viewBox="0 0 24 24"><path d="M7 2h10a5 5 0 015 5v10a5 5 0 01-5 5H7a5 5 0 01-5-5V7a5 5 0 015-5zm5 5a5 5 0 100 10 5 5 0 000-10zm6-.8a1 1 0 100 2 1 1 0 000-2z"/></svg>
+                </a>
+
+                <a href="#" aria-label="تويتر" class="social">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" viewBox="0 0 24 24"><path d="M19.6 2.3h2.4l-5.2 6 6.1 8h-4.8l-3.6-4.8-4.1 4.8H3.8l5.6-6.4L3.6 2.3H8l3.2 4.4z"/></svg>
+                </a>
+
+                <a href="mailto:info@3eeshha.com" aria-label="البريد الإلكتروني" class="social">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" viewBox="0 0 24 24"><path d="M4 6h16a2 2 0 012 2v8a2 2 0 01-2 2H4a2 2 0 01-2-2V8a2 2 0 012-2zm0 2l8 5 8-5"/></svg>
+                </a>
+
+                <a href="tel:+966500000000" aria-label="الهاتف" class="social">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" viewBox="0 0 24 24"><path d="M6.6 10.8a15 15 0 006.6 6.6l2.2-2.2a1 1 0 011.1-.2c1.2.5 2.5.8 3.9.8a1 1 0 011 1V20a1 1 0 01-1 1C12.4 21 3 11.6 3 1a1 1 0 011-1h3.2a1 1 0 011 1c0 1.4.3 2.7.8 3.9.1.4 0 .8-.2 1.1l-2.2 2.2z"/></svg>
+                </a>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <p>© 2025 عيشها. جميع الحقوق محفوظة.</p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const form = document.getElementById('loginForm');
+            const adminCheckbox = document.getElementById('adminCheckbox');
+            
+            // Real-time validation
+            const emailInput = document.getElementById('email');
+            const passwordInput = document.getElementById('password');
+            
+            emailInput.addEventListener('input', validateEmail);
+            passwordInput.addEventListener('input', validatePassword);
+            
+            function validateEmail() {
+                const email = emailInput.value.trim();
+                const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                const errorElement = document.getElementById('emailError');
+                
+                if (!email) {
+                    showError(errorElement, 'البريد الإلكتروني مطلوب');
+                    return false;
+                } else if (!emailRegex.test(email)) {
+                    showError(errorElement, 'يرجى إدخال بريد إلكتروني صحيح');
+                    return false;
+                } else {
+                    hideError(errorElement);
+                    return true;
+                }
+            }
+            
+            function validatePassword() {
+                const password = passwordInput.value;
+                const errorElement = document.getElementById('passwordError');
+                
+                if (!password) {
+                    showError(errorElement, 'كلمة المرور مطلوبة');
+                    return false;
+                } else if (password.length < 6) {
+                    showError(errorElement, 'كلمة المرور يجب أن تكون 6 أحرف على الأقل');
+                    return false;
+                } else {
+                    hideError(errorElement);
+                    return true;
+                }
+            }
+            
+            function showError(element, message) {
+                element.textContent = message;
+                element.style.display = 'block';
+            }
+            
+            function hideError(element) {
+                element.style.display = 'none';
+            }
+            
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                const isEmailValid = validateEmail();
+                const isPasswordValid = validatePassword();
+                
+                if (isEmailValid && isPasswordValid) {
+                    // Check if admin checkbox is checked
+                    if (adminCheckbox.checked) {
+                        // Redirect to admin page
+                        window.location.href = 'admin.html';
+                    } else {
+                        // Redirect to home page
+                        window.location.href = 'index.html';
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>
